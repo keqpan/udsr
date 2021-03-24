@@ -10,7 +10,7 @@ Notebook for exporting depth, image, poses and intrinsics from Scannet's .sens d
 Notebook for filterind Scannet and creating clear crops is located at
 ```/scannet_rendering/filtering.ipynb```
 
-Lists for filenames for Scannet train/test split are lockated in ```/split_file_names```
+Lists for filenames for Scannet train/test split are located in ```/split_file_names```
 
 ### Folder structure and options
 You shouldn't have any special structure for your data, but in train and test running commands you have to add ``` --path_A --path_B --path_A_test --path_B_test --A_add_paths (for train A images) --B_add_paths (for train B images) --A_add_paths_test (for test A images) --B_add_paths_test (for test B images)``` , or you can set this paths as default paths in ```options/train_options.py```; it can be more convenient. 
