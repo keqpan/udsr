@@ -47,7 +47,7 @@ And similarly in should have `testA`, `testB`, `valA`, `valB`. Each of those fol
 
 Then, run this command
 ```sh
-python main.py --gpu_ids 0,1 --display_freq 20 --print_freq 20 --n_epochs 20 --n_epochs_decay 60 --custom_pathes  --use_scannet --lr 0.0002 --model translation_block --save_all --batch_size 6 --name translation --netD n_layers --crop_size_h 256 --crop_size_w 256 --do_train --dataroot path_to_your_dataset --max_distance 5100 --init_type xavier --model_type T
+python main.py --gpu_ids 0,1 --display_freq 20 --print_freq 20 --n_epochs 20 --n_epochs_decay 60 --custom_pathes  --use_scannet --lr 0.0002 --model translation_block --save_all --batch_size 6 --name translation --netD n_layers --crop_size_h 256 --crop_size_w 256 --do_train --dataroot path_to_your_dataset --max_distance 5100 --init_type xavier --model_type translation
 ```
 
 ### Train Main network 

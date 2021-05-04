@@ -212,37 +212,16 @@ def calc_metrics_for_path(path_args, metric_names, max_depth):
     input_orig = imageio.imread(input_path).astype(np.float64)
     pred = imageio.imread(pred_path).astype(np.float64).clip(0, max_depth) 
     target = imageio.imread(target_path).astype(np.float64).clip(0, max_depth)
-#     print(pred.shape, target.shape)
     h_pred, w_pred = pred.shape
     h_target, w_target = target.shape
             
-#     transform_list = []
-#     transform_list.append(A.Resize(height=960, width=1280, interpolation=3, p=1))
-#     transformed = apply_transformer(transform_list, input_orig)
-#     input_orig = transformed['image']
-    
-    
-#     transform_list = []
-#     transform_list.append(A.Resize(height=480, width=640, interpolation=3, p=1))
-#     transformed = apply_transformer(transform_list, target)
-#     target = transformed['image']
-
-    
-#     transform_list = []
-#     transform_list.append(A.Resize(height=960, width=1280, interpolation=2, p=1))
-#     transformed = apply_transformer(transform_list, pred)
-#     pred = transformed['image']
-    
     h_pred, w_pred = pred.shape
     h_target, w_target = target.shape    
-    
-#     target = target[0::2, 0::2]
-#     pred = pred[0::2, 0::2]
+
     if 2*h_pred == h_target: # if our target is 2x bigger than prediction
         target = target[0::2, 0::2]
     hole_map = input_orig < holes_threshold
     target_hole_map = target < holes_threshold
-#     print(pred.shape, target.shape, target_hole_map.shape)
     K = np.loadtxt(intrisic_path)[:3,:3] if intrisic_path is not None else None
 #     K[0][0]=K[0][0]*2
 #     K[1][1]=K[1][1]*2

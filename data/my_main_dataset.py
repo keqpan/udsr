@@ -70,8 +70,10 @@ class MyUnalignedDataset(BaseDataset):
                 
                 if self.opt.no_aug:
                     transform_list.append(A.PadIfNeeded(512, 640, p=1))
+                    transform_list.append(A.HorizontalFlip(p=0.5))
+#                     transform_list.append(A.Rotate(limit = [-10, 10], p=0.8))
                 else:   
-                    transform_list.append(A.Rotate(limit = [-15,15], p=0.8))
+                    transform_list.append(A.Rotate(limit = [-30, 30], p=0.9))
                     transform_list.append(A.RandomCrop(height=height_c, width=width_c, p=1))
                     transform_list.append(A.HorizontalFlip(p=0.5))
                     
@@ -94,7 +96,7 @@ class MyUnalignedDataset(BaseDataset):
         BaseDataset.__init__(self, opt)
         
         self.opt = opt    
-    
+        self.stage = stage
         
         
         self.dir_A = os.path.join(opt.path_A)  # create a path '/path/to/data/trainA'
@@ -166,11 +168,10 @@ class MyUnalignedDataset(BaseDataset):
 
             A_img = np.array(Image.open(self.A_add_paths[index_A])).astype(np.float32)
             B_img = np.array(Image.open(self.B_add_paths[index_B])).astype(np.float32)
-            
+
             A_depth, A_img, = self.trasform(A_depth, A_img, train =self.train, full=True)
             B_depth, B_img, = self.trasform(B_depth, B_img, train =self.train, full=True)
-#             print(A_path)
-
+        
             
             K_B = self.get_imp_matrx(B_path)
             
