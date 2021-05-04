@@ -247,35 +247,15 @@ class MeanMatching(nn.Module):
         self.mu = mu
     def forward(self, real, fake, direction):
         if direction == 'A2B':
-#             mask_real = real > -1.0
-#             mask_fake = fake > -1.0
-#             mean_real = torch.sum(real, dim=(2,3), keepdim=True) / (torch.sum(mask_real, dim=(2,3), keepdim=True) + 1e-15)
-#             mean_fake = torch.sum(fake, dim=(2,3), keepdim=True) / (torch.sum(mask_fake, dim=(2,3), keepdim=True) + 1e-15)
-#             dif = (mean_real - mean_fake) * mask_fake
-#             fake = torch.clamp(fake + dif, -1.0, 1.0)
             mask_fake = fake > -1.0
             shift = np.random.uniform(low=0, high=self.mu) * mask_fake
             fake = torch.clamp(fake + shift, -1.0, 1.0)
         elif direction == 'B2A':
-#             mask_real = real > -1.0
-#             mask_fake = fake > -1.0
-#             mean_real = torch.sum(real, dim=(2,3), keepdim=True) / (torch.sum(mask_real, dim=(2,3), keepdim=True) + 1e-15)
-#             mean_fake = torch.sum(fake, dim=(2,3), keepdim=True) / (torch.sum(mask_fake, dim=(2,3), keepdim=True) + 1e-15)
-#             dif  = (mean_fake - mean_real) * mask_real
-#             real = torch.clamp(real + dif, -1.0, 1.0)
             mask_real = real > -1.0
             shift = np.random.uniform(low=0, high=self.mu) * mask_real
             real = torch.clamp(real + shift, -1.0, 1.0)
         else:
             NotImplementedError('Specify direction')
-#         if torch.rand((1,)).item() > 0.5:
-#             mask_real = real > -1.0
-#             mask_fake = fake > -1.0
-#             mean_real = torch.sum(real, dim=(2,3), keepdim=True) / (torch.sum(mask_real, dim=(2,3), keepdim=True) + 1e-15)
-#             mean_fake = torch.sum(fake, dim=(2,3), keepdim=True) / (torch.sum(mask_fake, dim=(2,3), keepdim=True) + 1e-15)
-#             dif = (mean_real - mean_fake) * mask_fake
-#             fake = torch.clamp(fake + dif, -1.0, 1.0) #+ torch.normal(mean=0., std=0.001, size=real.shape, device=real.device) #torch.normal(mean=dif, std=0.001)
-            #fake = fake + torch.normal(mean=0., std=0.001, size=fake.shape, device=fake.device)
         return real, fake
 
 class MaskedL1Loss(nn.Module):
