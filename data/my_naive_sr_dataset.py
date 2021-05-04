@@ -67,6 +67,7 @@ class MyUnalignedDataset(BaseDataset):
         if train:
             if full:
                 transform_list.append(A.Resize(height=height, width=width, interpolation=3, p=1))
+                transform_list.append(A.HorizontalFlip(p=0.5))
                 transform_list.append(A.PadIfNeeded(1024, 1280, p=1))
 
                 transform_list_d = []
@@ -201,7 +202,6 @@ class MyUnalignedDataset(BaseDataset):
             if self.train:
                 crop_A = np.array([h_a, self.opt.crop_size_h*2+h_a, w_a, self.opt.crop_size_w*2+w_a])
                 crop_B = np.array([h_b, self.opt.crop_size_h+h_b, w_b, self.opt.crop_size_w+w_b])
-                
             else:
                 crop_A = np.array([0, 512*2, 0, 640*2])
                 crop_B = np.array([0, 512, 0, 640])                

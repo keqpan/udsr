@@ -70,7 +70,7 @@ class MyUnalignedDataset(BaseDataset):
                 
                 if self.opt.no_aug:
                     transform_list.append(A.PadIfNeeded(512, 640, p=1))
-#                     transform_list.append(A.HorizontalFlip(p=0.5))
+                    transform_list.append(A.HorizontalFlip(p=0.5))
 #                     transform_list.append(A.Rotate(limit = [-10, 10], p=0.8))
                 else:   
                     transform_list.append(A.Rotate(limit = [-30, 30], p=0.9))
