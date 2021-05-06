@@ -68,7 +68,7 @@ python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 20
 After that you have to add flag `--no_aug` to turn off augmentation and fine-tune network on full-size RGBDs and continue training by the following command:
 
 ```sh
-python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 10 --n_epochs_decay 20 --image_and_depth --continue_train --custom_pathes --use_image_for_trans --w_syn_l1 15 --w_real_l1_d 90  --norm_loss --w_syn_norm 2 --use_smooth_loss --w_smooth 1 --w_syn_holes 1600 --w_real_holes 1600 --use_masked  --use_scannet --lr 0.00002 --model main_network_best --save_all --batch_size 3 --name your_folder_name --model_type main --use_wandb --no_aug
+python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 10 --n_epochs_decay 20 --image_and_depth --continue_train --custom_pathes --use_image_for_trans --w_syn_l1 15 --w_real_l1_d 80  --norm_loss --w_syn_norm 3 --use_smooth_loss --w_smooth 1 --w_syn_holes 1600 --w_real_holes 1600 --use_masked  --use_scannet --lr 0.00002 --model main_network_best --save_all --batch_size 3 --name your_folder_name --model_type main --use_wandb --no_aug
 ```
 
 If you use InteriorNet as HQ dataset you must use almost the same commands, you only have to change weights as stated in article and additionally use `--interiornet` flag. 
@@ -79,7 +79,7 @@ Before training please copy your `your_folder_name` folder (to save enhancement 
 To start fine-tuning process of main network for super-resolution you have to run:
 
 ```sh
-python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 5 --n_epochs_decay 15 --image_and_depth --continue_train --custom_pathes --use_image_for_trans --w_syn_l1 15 --w_real_l1_d 90  --norm_loss --w_syn_norm 3 --use_smooth_loss --w_smooth 1 --w_syn_holes 1600 --w_real_holes 1600 --use_masked  --use_scannet --lr 0.00002 --model main_network_best --save_all --batch_size 1 --name your_sr_folder_name --do_train --crop_size_h 384 --crop_size_w 512 --use_wandb --model_type main --SR 
+python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 5 --n_epochs_decay 15 --image_and_depth --continue_train --custom_pathes --use_image_for_trans --w_syn_l1 15 --w_real_l1_d 80  --norm_loss --w_syn_norm 3 --use_smooth_loss --w_smooth 1 --w_syn_holes 1600 --w_real_holes 1600 --use_masked  --use_scannet --lr 0.00002 --model main_network_best --save_all --batch_size 1 --name your_sr_folder_name --do_train --crop_size_h 384 --crop_size_w 512 --use_wandb --model_type main --SR 
 ```
 After that fine-tune a few epothes more with full-size images by setting `--crop_size_h 480 --crop_size_w 640` 
 
