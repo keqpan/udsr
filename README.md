@@ -7,7 +7,7 @@ First of all you need to download Scannet dataset and Interiornet dataset (if ne
 Notebook for exporting depth, image, poses and intrinsics from Scannet's .sens data and following rendering is located at 
 ```/scannet_rendering/render_scannet.ipynb```
 
-Notebook for filterind Scannet and creating clear crops is located at
+Notebook for filtering ScanNet and creating clear crops is located at
 ```/scannet_rendering/filtering.ipynb```
 
 Lists for filenames for Scannet train/test split are located in ```/split_file_names``` folder.
