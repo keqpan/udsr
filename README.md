@@ -1,8 +1,8 @@
 # Unpaired Depth Super-Resolution in the Wild
-This is the implementation in `Python` annd `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://arxiv.org/abs/2105.12038) paper.
+This is the implementation in `Python` and `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://arxiv.org/abs/2105.12038) paper.
 
 ### Dataset prepraing
-First of all you need to download Scannet dataset and Interiornet dataset (if needed)
+First of all you need to download Scannet dataset and Interiornet dataset (if needed).
 
 Notebook for exporting depth, image, poses and intrinsics from Scannet's .sens data and following rendering is located at 
 ```/scannet_rendering/render_scannet.ipynb```
@@ -10,7 +10,7 @@ Notebook for exporting depth, image, poses and intrinsics from Scannet's .sens d
 Notebook for filterind Scannet and creating clear crops is located at
 ```/scannet_rendering/filtering.ipynb```
 
-Lists for filenames for Scannet train/test split are located in ```/split_file_names```
+Lists for filenames for Scannet train/test split are located in ```/split_file_names``` folder.
 
 ### Folder structure and options
 You shouldn't have any special structure for your data, but in train and test running commands you have to add ``` --path_A --path_B --path_A_test --path_B_test --A_add_paths (for train A images) --B_add_paths (for train B images) --A_add_paths_test (for test A images) --B_add_paths_test (for test B images)``` , or you can set this paths as default paths in ```options/train_options.py```; it can be more convenient. 
