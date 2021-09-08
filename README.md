@@ -1,5 +1,5 @@
-# Towards Unpaired Depth Enhancement and Super-Resolution in the Wild
-
+# Unpaired Depth Super-Resolution in the Wild
+This is the implementation in `Python` annd `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://arxiv.org/abs/2105.12038) paper.
 
 ### Dataset prepraing
 First of all you need to download Scannet dataset and Interiornet dataset (if needed)
