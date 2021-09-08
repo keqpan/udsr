@@ -1,7 +1,7 @@
 # Unpaired Depth Super-Resolution in the Wild
 This is the implementation in `Python` and `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://arxiv.org/abs/2105.12038) paper.
 
-### Dataset prepraing
+### Dataset preparation
 First of all you need to download Scannet dataset and Interiornet dataset (if needed).
 
 Notebook for exporting depth, image, poses and intrinsics from Scannet's .sens data and following rendering is located at 
