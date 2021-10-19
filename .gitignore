@@ -45,3 +45,4 @@ wandb
 checkpoints
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+scannet_rendering/Anaconda3-2020.11-Linux-x86_64.sh
