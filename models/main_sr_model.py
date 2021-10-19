@@ -134,7 +134,7 @@ class MainSRModel(BaseModel):
         self.visual_names = visual_names_A + visual_names_B  # combine visualizations for A and B
         
         
-        self.model_names = ['G_A_d',  'I2D_features', 'Image2Depth', 'Task']
+        self.model_names = ['G_A_d',  'I2D_features', 'Image2Depth', 'Task', 'Depth_f']
         
         # Define networks 
         
@@ -170,8 +170,12 @@ class MainSRModel(BaseModel):
         if opt.use_rec_as_real_input :
             self.netG_B_d = networks.define_G(translation_input_d, 1, opt.ngf, opt.netG, opt.norm,
                                                 not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids, opt.replace_transpose)
-          
-        task_input_features =  opt.ImageDepthf_outf +  5
+ 
+
+        self.netDepth_f = networks.define_G(2, opt.Depthf_outf, opt.Depthf_basef, opt.Depthf_type, opt.norm,
+                                        not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids, opt.replace_transpose, n_down = opt.Depthf_ndown)
+                                            
+        task_input_features =  5 +  opt.ImageDepthf_outf + opt.Depthf_outf
         self.netTask = networks.define_G(task_input_features, 1, opt.Task_basef, opt.Task_type, opt.norm,
                                         not opt.no_dropout, opt.init_type, opt.init_gain, self.gpu_ids, opt.replace_transpose, n_down = opt.Task_ndown)
         
@@ -193,7 +197,7 @@ class MainSRModel(BaseModel):
             self.criterionGAN = networks.GANLoss(opt.gan_mode).to(self.device)  # define GAN loss.
             
 
-            self.optimizer_G = torch.optim.Adam(itertools.chain(self.netTask.parameters()), lr=opt.lr)
+            self.optimizer_G = torch.optim.Adam(itertools.chain(self.netDepth_f.parameters(), self.netTask.parameters()), lr=opt.lr)
             self.optimizers.append(self.optimizer_G)
             if self.opt.use_D:
                 self.optimizer_D = torch.optim.Adam(itertools.chain(self.netD_depth.parameters()), lr=opt.lr, betas=(opt.beta1, 0.999))
@@ -353,14 +357,19 @@ class MainSRModel(BaseModel):
         del real_depth
 
 
-        self.pred_real_depth_hr = self.netTask(torch.cat([image_features_real, torch.cat([self.depth_masked, self.real_depth_by_image], dim=1), self.real_image], dim=1)) 
+        feat_real_depth = self.netDepth_f(torch.cat([self.depth_masked, self.real_depth_by_image], dim=1))
+#         print(image_features_real.shape, self.depth_masked.shape, self.real_depth_by_image.shape, self.real_image.shape)
+        self.pred_real_depth_hr = self.netTask(torch.cat([image_features_real, feat_real_depth, torch.cat([self.depth_masked, self.real_depth_by_image], dim=1), self.real_image], dim=1)) 
+
+        
 
         
         del image_features_real
 
         
         if stage=='train':
-            self.pred_syn_depth = self.netTask(torch.cat([image_features_syn, torch.cat([self.syn2real_depth_masked, self.syn_depth_by_image], dim=1), self.syn_image], dim=1)) 
+            feat_syn_depth = self.netDepth_f(torch.cat([self.syn2real_depth_masked, self.syn_depth_by_image], dim=1))
+            self.pred_syn_depth = self.netTask(torch.cat([image_features_syn,feat_syn_depth, torch.cat([self.syn2real_depth_masked, self.syn_depth_by_image], dim=1), self.syn_image], dim=1)) 
             del image_features_syn
             self.pred_real_depth = F.interpolate(self.pred_real_depth_hr, size = (self.opt.crop_size_h,self.opt.crop_size_w) , mode='bicubic')
             syn_mean = torch.mean(self.syn_depth*self.syn_mask) 
