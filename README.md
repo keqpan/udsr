@@ -1,5 +1,5 @@
 # Unpaired Depth Super-Resolution in the Wild
-This is the implementation in `Python` and `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://arxiv.org/abs/2105.12038) paper.
+This is the official implementation in `Python` and `PyTorch` of the [**Unpaired Depth Super-Resolution in the Wild**](https://ieeexplore.ieee.org/document/10637328) paper.
 
 ### Dataset preparation
 First of all you need to download ScanNet dataset and InteriorNet dataset (if needed).
@@ -84,6 +84,21 @@ python main.py --gpu_ids 0,1,2,3 --display_freq 20 --print_freq 20 --n_epochs 5 
 After that fine-tune a few epothes more with full-size images by setting `--crop_size_h 480 --crop_size_w 640` 
 
 If you use InteriorNet as HQ dataset you must use almost the same commands, you only have to change weights as stated in the article and additionally use `--interiornet` flag. 
+
+
+## Citation
+```
+@ARTICLE{safin2024udsr,
+  author={Safin, Aleksandr and Kan, Maxim and Drobyshev, Nikita and Voynov, Oleg and Artemov, Alexey and Filippov, Alexander and Zorin, Denis and Burnaev, Evgeny},
+  journal={IEEE Access}, 
+  title={Unpaired Depth Super-Resolution in the Wild}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Superresolution;Training;Task analysis;Sensors;Noise measurement;Noise reduction;Image sensors;Depth data;enhancement;generative networks;super-resolution;unsupervised learning},
+  doi={10.1109/ACCESS.2024.3444452}}
+```
 
 
 
